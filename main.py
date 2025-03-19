@@ -35,14 +35,15 @@ while running:
     if tick >= 60:
         tick = 0
 
+    # Update player walking
+    p.walking = False
+
     # Clear screen
     screen.fill((255, 255, 255))
 
     # Drawing player
     screen.blit(p.player, (p.rect.x, p.rect.y))
 
-    #Player animation
-    p.updateAnimations(tick)
 
     # Drawing test block
     screen.blit(testRect.block, (testRect.rect.x, testRect.rect.y))
@@ -51,12 +52,21 @@ while running:
     keys = pg.key.get_pressed()
     if keys[pg.K_w] or keys[pg.K_UP]:
         p.rect.y -= settings.PLAYER_SPEED
+        p.walking = True
     if keys[pg.K_a] or keys[pg.K_LEFT]:
         p.rect.x -= settings.PLAYER_SPEED
+        p.walking = True
+        p.direction = "left"
     if keys[pg.K_s] or keys[pg.K_DOWN]:
         p.rect.y += settings.PLAYER_SPEED
+        p.walking = True
     if keys[pg.K_d] or keys[pg.K_RIGHT]:
         p.rect.x += settings.PLAYER_SPEED
+        p.walking = True
+        p.direction = "right"
+
+    #Player animation
+    p.updateAnimations(tick)
     
     pg.display.flip()
     clock.tick(60)
