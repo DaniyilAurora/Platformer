@@ -25,6 +25,7 @@ class Player():
         self.rect.y = y
         self.walking = False
         self.direction = "right"
+        self.velocity = 0
         self.grounded = False
 
     def updateAnimations(self, iteration):

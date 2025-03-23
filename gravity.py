@@ -9,16 +9,30 @@ class Gravity():
     def applyGravity(self, player: player.Player, blocks: list[block.Block]):
         gravityApply = True
 
+        # Check for collision to stop gravity
         for b in blocks:
             if b.rect.colliderect(player.rect):
                 gravityApply = False
-            pass
+                break  # Stop checking if any block collides
 
-            if gravityApply:
-                player.rect.y += settings.GRAVITY
-            else:
+        if gravityApply:
+            # Apply gravity: increase velocity up to MAX_GRAVITY
+            if player.velocity < abs(settings.MAX_GRAVITY):
+                player.velocity += settings.MAX_GRAVITY / 10
+
+            # Move the player down
+            player.rect.y -= player.velocity
+
+        else:
+            # Stop falling when grounded
+            player.velocity = 0
+
+            # Correct player position if sinking into a block
+            for b in blocks:
                 if player.rect.bottom > b.rect.top:
                     player.rect.bottom = b.rect.top
+                    break
+
 
     def handle_collisions(self, player, blocks):
         player.grounded = False

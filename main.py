@@ -78,6 +78,8 @@ while running:
         p.rect.x += settings.PLAYER_SPEED
         p.walking = True
         p.direction = "right"
+    if keys[pg.K_SPACE]:
+        p.velocity = 5
 
     #Player animation
     p.updateAnimations(tick)
