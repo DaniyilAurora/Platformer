@@ -29,6 +29,7 @@ class Player():
         self.direction = "right"
         self.velocity = 0
         self.grounded = False
+        self.jumping = False
 
     def updateAnimations(self, iteration):
         if not self.walking:

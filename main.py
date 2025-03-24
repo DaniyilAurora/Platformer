@@ -13,6 +13,8 @@ import gravity
 # - Level creation and management (.lvl files)
 # - SFX and GFX
 
+# TODO: Rewrite physics engine, add map files .lvl, add enemies, create map goal, add sfx and gfx,
+
 # Initialise pygame
 pg.init()
 screen = pg.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
@@ -26,7 +28,7 @@ p = player.Player(80, 20)
 
 # Create testing blocks
 testRect = block.Block(100, 250, "grass_block")
-testRect2 = block.Block(150, 250, "grass_block")
+testRect2 = block.Block(150, 150, "grass_block")
 
 # Blocks list
 blocks = []
@@ -63,9 +65,8 @@ while running:
         screen.blit(b.block, (b.rect.x, b.rect.y))
 
     # Apply Gravity
-    if not p.grounded:
-        gr.applyGravity(p, blocks)
-    gr.handle_collisions(p, blocks)
+    gr.calculateVelocity(p, blocks)
+    gr.applyGravity(p, blocks)
 
     # Keyboard input
     keys = pg.key.get_pressed()
@@ -78,7 +79,10 @@ while running:
         p.walking = True
         p.direction = "right"
     if keys[pg.K_SPACE]:
-        p.velocity = 5
+        if p.grounded:
+            p.velocity = 10
+            p.jumping = True
+
 
     #Player animation
     p.updateAnimations(tick)

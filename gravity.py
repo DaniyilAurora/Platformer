@@ -6,40 +6,29 @@ class Gravity():
     def __init__(self):
         pass
 
-    def applyGravity(self, player: player.Player, blocks: list[block.Block]):
-        gravityApply = True
-
-        # Check for collision to stop gravity
-        for b in blocks:
-            if b.rect.colliderect(player.rect):
-                gravityApply = False
-                break
-
-        if gravityApply:
-            # Apply gravity: increase velocity up to MAX_GRAVITY / 10
-            if player.velocity < abs(settings.MAX_GRAVITY):
+    def calculateVelocity(self, player: player.Player, blocks: list[block.Block]):
+        # Debug message
+        #print(f'Player Velocty: {player.velocity} | Player isGrounded: {player.grounded}')
+        
+        # If player is not grounded, gradually apply gravity until max value
+        if not player.grounded and player.velocity >= settings.MAX_GRAVITY:
                 player.velocity += settings.MAX_GRAVITY / 10
-
-            # Move the player down
-            player.rect.y -= player.velocity
-
-        else:
-            # Stop falling when grounded
+        elif player.grounded and not player.jumping:
+            # Stop falling
             player.velocity = 0
 
-            # Correct player position if sinking into a block
-            for b in blocks:
-                if player.rect.bottom > b.rect.top:
-                    player.rect.bottom = b.rect.top
-                    break
-
-
-    def handle_collisions(self, player, blocks):
+    def applyGravity(self, player: player.Player, blocks: list[block.Block]):
         player.grounded = False
+        player.jumping = False
 
-        # Check if there are any collisions with blocks
-        for block in blocks:
-            if player.rect.colliderect(block.rect):
-                if player.rect.bottom > block.rect.top:
-                    player.rect.bottom = block.rect.top
-                    player.grounded = True
+        # Check for collisions
+        for b in blocks:
+            if player.rect.colliderect(b.rect):
+                player.grounded = True
+                player.velocity = 0
+                
+                # Push player up onto block surface
+                player.rect.y = b.rect.top - player.rect.height
+
+        # Apply velocity to player
+        player.rect.y -= player.velocity
