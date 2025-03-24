@@ -1,11 +1,13 @@
 import pygame as pg
 import settings as st
 
+# Load idle animation sprites
 animationsIdle = [
     pg.image.load("imgs/player_idle_0.png"),
     pg.image.load("imgs/player_idle_1.png")
 ]
 
+# Load walking animation sprites
 animationsWalking = [
     pg.image.load("imgs/player_walking_0.png"),
     pg.image.load("imgs/player_walking_1.png"),
@@ -30,13 +32,13 @@ class Player():
 
     def updateAnimations(self, iteration):
         if not self.walking:
-            self.player = animationsIdle[iteration // 30].convert_alpha()
+            self.player = animationsIdle[iteration // 30].convert_alpha() # Update idle animation every half of a second
             self.player = pg.transform.scale(self.player, (st.BLOCKS_WIDTH * 1.3, st.BLOCKS_HEIGHT * 1.3))
             
             if self.direction == "left":
                 self.player = pg.transform.flip(self.player, True, False)
         else:
-            self.player = animationsWalking[iteration // 5 % 6].convert_alpha()
+            self.player = animationsWalking[iteration // 5 % 6].convert_alpha() # Update animation every 5 frames
             self.player = pg.transform.scale(self.player, (st.BLOCKS_WIDTH * 1.3, st.BLOCKS_HEIGHT * 1.3))
             
             if self.direction == "left":

@@ -13,10 +13,10 @@ class Gravity():
         for b in blocks:
             if b.rect.colliderect(player.rect):
                 gravityApply = False
-                break  # Stop checking if any block collides
+                break
 
         if gravityApply:
-            # Apply gravity: increase velocity up to MAX_GRAVITY
+            # Apply gravity: increase velocity up to MAX_GRAVITY / 10
             if player.velocity < abs(settings.MAX_GRAVITY):
                 player.velocity += settings.MAX_GRAVITY / 10
 
@@ -37,6 +37,7 @@ class Gravity():
     def handle_collisions(self, player, blocks):
         player.grounded = False
 
+        # Check if there are any collisions with blocks
         for block in blocks:
             if player.rect.colliderect(block.rect):
                 if player.rect.bottom > block.rect.top:
