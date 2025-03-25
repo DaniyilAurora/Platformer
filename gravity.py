@@ -7,9 +7,6 @@ class Gravity():
         pass
 
     def calculateVelocity(self, player: player.Player, blocks: list[block.Block]):
-        # Debug message
-        #print(f'Player Velocty: {player.velocity} | Player isGrounded: {player.grounded}')
-        
         # If player is not grounded, gradually apply gravity until max value
         if not player.grounded and player.velocity >= settings.MAX_GRAVITY:
                 player.velocity += settings.MAX_GRAVITY / 10

@@ -13,7 +13,7 @@ import gravity
 # - Level creation and management (.lvl files)
 # - SFX and GFX
 
-# TODO: Rewrite physics engine, add map files .lvl, add enemies, create map goal, add sfx and gfx,
+# TODO: add map files .lvl, add enemies, create map goal, add sfx and gfx,
 
 # Initialise pygame
 pg.init()
@@ -82,7 +82,6 @@ while running:
         if p.grounded:
             p.velocity = 10
             p.jumping = True
-
 
     #Player animation
     p.updateAnimations(tick)
