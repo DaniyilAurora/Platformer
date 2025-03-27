@@ -9,3 +9,4 @@ class Block():
         self.rect = self.block.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.blockType = blockType

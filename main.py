@@ -3,6 +3,7 @@ import settings
 import player
 import block
 import gravity
+import map
 
 #Requirements:
 # - Mario-Style game
@@ -26,15 +27,11 @@ gr = gravity.Gravity()
 # Create player
 p = player.Player(80, 20)
 
-# Create testing blocks
-testRect = block.Block(100, 250, "grass_block")
-testRect2 = block.Block(150, 150, "grass_block")
+# Initialise map
+level = map.Map("lvls/level1.lvl")
 
 # Blocks list
-blocks = []
-
-blocks.append(testRect)
-blocks.append(testRect2)
+blocks = level.getBlocks()
 
 # Main loop
 running = True
@@ -57,16 +54,16 @@ while running:
     # Clear screen
     screen.fill((255, 255, 255))
 
-    # Drawing player
-    screen.blit(p.player, (p.rect.x, p.rect.y))
-
-    # Drawing test block
+    # Drawing blocks
     for b in blocks:
         screen.blit(b.block, (b.rect.x, b.rect.y))
 
     # Apply Gravity
     gr.calculateVelocity(p, blocks)
     gr.applyGravity(p, blocks)
+
+    # Drawing player
+    screen.blit(p.player, (p.rect.x, p.rect.y))
 
     # Keyboard input
     keys = pg.key.get_pressed()

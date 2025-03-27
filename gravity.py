@@ -18,14 +18,15 @@ class Gravity():
         player.grounded = False
         player.jumping = False
 
+        # Apply velocity to player
+        player.rect.y -= player.velocity
+
         # Check for collisions
         for b in blocks:
-            if player.rect.colliderect(b.rect):
+            if player.rect.colliderect(b.rect) and b.blockType != "air":
                 player.grounded = True
                 player.velocity = 0
                 
                 # Push player up onto block surface
                 player.rect.y = b.rect.top - player.rect.height
-
-        # Apply velocity to player
-        player.rect.y -= player.velocity
+                break
