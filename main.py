@@ -25,7 +25,7 @@ pg.display.set_caption("Platformer")
 gr = gravity.Gravity()
 
 # Create player
-p = player.Player(80, 20)
+p = player.Player(settings.SPAWNPOINT[0], settings.SPAWNPOINT[1])
 
 # Initialise map
 level = map.Map("lvls/level1.lvl")

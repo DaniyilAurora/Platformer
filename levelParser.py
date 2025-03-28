@@ -2,7 +2,8 @@ import settings
 
 blockMap = {
     "#": "grass_block",
-    ".": "air"
+    ".": "air",
+    "E": "end"
 }
 
 class LevelParser():

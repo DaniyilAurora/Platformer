@@ -23,10 +23,17 @@ class Gravity():
 
         # Check for collisions
         for b in blocks:
-            if player.rect.colliderect(b.rect) and b.blockType != "air":
+            if player.rect.colliderect(b.rect) and b.blockType != "air" and b.blockType != "end":
                 player.grounded = True
                 player.velocity = 0
                 
                 # Push player up onto block surface
                 player.rect.y = b.rect.top - player.rect.height
                 break
+            elif player.rect.colliderect(b.rect) and b.blockType == "end":
+                 print("You Win!")
+
+        # Check if player below the camera
+        if player.rect.y >= 500:
+             player.rect.x = settings.SPAWNPOINT[0]
+             player.rect.y = settings.SPAWNPOINT[1]

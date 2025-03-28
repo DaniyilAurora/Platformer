@@ -5,7 +5,8 @@ import levelParser
 blockMap = {
     "grass_block": "grass_block",
     "air": "air",
-    "": "air"
+    "": "air",
+    "end": "end"
 }
 
 class Map():
