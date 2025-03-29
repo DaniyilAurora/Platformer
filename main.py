@@ -1,20 +1,9 @@
 import pygame as pg
 import settings
 import player
-import block
 import gravity
 import map
-
-#Requirements:
-# - Mario-Style game
-# - Player control through keyboard
-# - Enemy and simple AI
-# - Static maps to complete (2 maps)
-# - Goal of the map (reach end)
-# - Level creation and management (.lvl files)
-# - SFX and GFX
-
-# TODO: add map files .lvl, add enemies, create map goal, add sfx and gfx,
+import sys
 
 # Initialise pygame
 pg.init()
@@ -22,7 +11,7 @@ screen = pg.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
 pg.display.set_caption("Platformer")
 
 # Initialise gravity class
-gr = gravity.Gravity()
+gr = gravity.Gravity(screen)
 
 # Create player
 p = player.Player(settings.SPAWNPOINT[0], settings.SPAWNPOINT[1])
@@ -43,6 +32,7 @@ while running:
         if event.type == pg.QUIT:
             pg.quit()
             running = False
+            sys.exit()
     
     # Tick calculation
     if tick >= 60:

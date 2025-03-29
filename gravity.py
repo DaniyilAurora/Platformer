@@ -1,9 +1,11 @@
+import pygame
 import player
 import block
 import settings
 
 class Gravity():
-    def __init__(self):
+    def __init__(self, screen):
+        self.screen = screen
         pass
 
     def calculateVelocity(self, player: player.Player, blocks: list[block.Block]):
@@ -31,9 +33,15 @@ class Gravity():
                 player.rect.y = b.rect.top - player.rect.height
                 break
             elif player.rect.colliderect(b.rect) and b.blockType == "end":
-                 print("You Win!")
+                 self.win()
 
         # Check if player below the camera
         if player.rect.y >= 500:
              player.rect.x = settings.SPAWNPOINT[0]
              player.rect.y = settings.SPAWNPOINT[1]
+
+    # When player reached end, show win message
+    def win(self):
+        text = pygame.font.Font(None, size=95)
+        text = text.render("You Won!", True, (255, 255, 255))
+        self.screen.blit(text, (200, 180))
